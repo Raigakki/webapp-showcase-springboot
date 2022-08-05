@@ -1,6 +1,7 @@
 package com.myrepository.webappdemobackend.controller;
 
 import com.myrepository.webappdemobackend.WebappDemoBackendApplication;
+import com.myrepository.webappdemobackend.entity.response.ExerciseResponse;
 import com.myrepository.webappdemobackend.service.ExerciseService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
@@ -23,26 +24,23 @@ public class ExerciseController {
     @Autowired
     ExerciseService exerciseService;
 
-    @GetMapping(path = "/resistenza/{numeroDaElaborare}")
+    @GetMapping(path = "/resistance/find/{numberToCompute}")
     // TODO SISTEMARE NOTE CON SPIEGAZIONE
     @ApiOperation(value = "Restituisce la resistenza di un numero in input", notes = "La resistenza di un numero è...")
-    public ResponseEntity<String> getResistenza(@PathVariable String numeroDaElaborare) {
-        return ResponseEntity.ok(exerciseService.getResistenza(numeroDaElaborare));
+    public ResponseEntity<String> getResistenza(@PathVariable String numberToCompute) {
+        return ResponseEntity.ok(exerciseService.getResistenza(numberToCompute));
     }
 
-    @GetMapping(path = "/resistenza/max/{limiteCalcolo}")
+    @GetMapping(path = "/resistance/max/{limitNumber}")
     @ApiOperation(value = "Restituisce il numero con la resistenza più alta calcolato fino al numero in input")
-    public ResponseEntity<List<String>> getNumeroPiuResistente(@PathVariable String limiteCalcolo) {
-        List<String> numeriPiuResistentiList = exerciseService.getNumeroPiuResistente(limiteCalcolo);
-        if (true) {
-            // TODO IMPLEMENTARE CORRETTAMENTE UNA BAD REQUEST
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(numeriPiuResistentiList);
+    public ResponseEntity<ExerciseResponse> getHighestResistentNumber(@PathVariable String limitNumber) {
+        // TODO TROVARE STANDARD PER SINTASSI LOG
+        logger.info("getHighestResistentNumber({})", limitNumber);
+        return ResponseEntity.ok(exerciseService.getHighestResistentNumber(limitNumber));
     }
 
     private void logging() {
-        // TODO IMPLEMENTARE CORRETTAMENTE UN LOGGER
+        // TODO RIMUOVERE --> LOGGING EXAMPLE
         logger.debug("Debugging log");
         logger.info("Info log");
         logger.warn("Hey, This is a warning!");

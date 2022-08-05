@@ -1,9 +1,10 @@
 package com.myrepository.webappdemobackend.service;
 
+import com.myrepository.webappdemobackend.entity.model.ResistanceExercise;
+import com.myrepository.webappdemobackend.entity.response.ExerciseResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ExerciseService {
@@ -30,29 +31,84 @@ public class ExerciseService {
 
     }
 
-    public List<String> getNumeroPiuResistente(String limit) {
-        // TODO Implementare un logger
-        //TODO GESTIRE RETURN FUORI DAL TRY/CATCH
+    public ExerciseResponse getHighestResistentNumber(String inputLimit) {
+        ExerciseResponse exerciseResponse = new ExerciseResponse();
+        ResistanceExercise resistanceExercise = new ResistanceExercise();
         try {
-            int limitNumeric = Integer.parseInt(limit);
-            int resistenzaMax = 0;
-            int resistenzaIterazioneAttuale;
-            List<String> numsMaxRes = new ArrayList<>();
-            for (int i = 0; i <= limitNumeric; i++) {
+            Integer limit = Integer.valueOf(inputLimit);
+            // TODO implementare eccezione perzonalizzata?
+            if (limit < 0) throw new Exception();
+            resistanceExercise.setResistanceAssociated(0);
+            resistanceExercise.setConsideredNumber(0);
+            for (int i = 0; i <= limit; i++) {
+                int resistenzaIterazioneAttuale;
                 resistenzaIterazioneAttuale = Integer.parseInt(getResistenza(String.valueOf(i)));
-                if (resistenzaIterazioneAttuale > resistenzaMax) {
-                    resistenzaMax = resistenzaIterazioneAttuale;
-                    numsMaxRes.clear();
-                    numsMaxRes.add(String.valueOf(i));
-                } else if (resistenzaIterazioneAttuale == resistenzaMax) {
-                    numsMaxRes.add(String.valueOf(i));
+                if (resistenzaIterazioneAttuale >= resistanceExercise.getResistanceAssociated()) {
+                    resistanceExercise.setConsideredNumber(i);
+                    resistanceExercise.setResistanceAssociated(resistenzaIterazioneAttuale);
                 }
             }
-            return numsMaxRes;
-        } catch (Exception e) {
-            return List.of(e.getClass().toString(),
-                    "Errore durante l'elaborazione dell'input '" + limit + "'. Inserire un numero intero positivo.");
         }
+        catch (Exception e) {
+            exerciseResponse.setErrorFlag(true);
+            exerciseResponse.setErrorMessage(
+                    "Input number must be a positive Java-Readable Integer " +
+                    "(Min Value = 0, Max Value = " + Integer.MAX_VALUE + ")");
+            return exerciseResponse;
+        }
+        exerciseResponse.setResistanceExercise(resistanceExercise);
+        return exerciseResponse;
+    }
+
+    public Set<Integer> getFrequente(int[] numsArray) {
+        int count;
+        Set<Integer> numsPiuFrequenti = new HashSet<>();
+        int frequenzaMax = 0;
+        for (int i = 0; i < numsArray.length; i++) {
+            if (numsPiuFrequenti.contains(numsArray[i]))
+                continue;
+            count = 0;
+            for (int j = 0; j < numsArray.length; j++) {
+                if (numsArray[i] == numsArray[j])
+                    count++;
+            }
+            if (count > frequenzaMax) {
+                numsPiuFrequenti.clear();
+                numsPiuFrequenti.add(numsArray[i]);
+                frequenzaMax = count;
+            }
+            if (count == frequenzaMax) {
+                numsPiuFrequenti.add(numsArray[i]);
+            }
+        }
+        return numsPiuFrequenti;
+    }
+
+    public List<String> getFrequenti(int[] numsArray, int limit) {
+        int count;
+        Map<String, Integer> frequenzaNums = new HashMap<>();
+        for (int i = 0; i < numsArray.length; i++) {
+            if (frequenzaNums.containsKey(numsArray[i]))
+                continue;
+            count = 0;
+            for (int j = 0; j < numsArray.length; j++) {
+                if (numsArray[i] == numsArray[j])
+                    count++;
+            }
+            frequenzaNums.put(String.valueOf(numsArray[i]),count);
+        }
+
+        List<String> numPiuFrequentiDesc = new ArrayList<>();
+
+        frequenzaNums.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEachOrdered(x -> numPiuFrequentiDesc.add(x.getKey()));
+
+        List<String> numPiuFrequentiRichiesti = new ArrayList<>();
+        for (int i = numPiuFrequentiDesc.size() - 1; i > numPiuFrequentiDesc.size() - 1 - limit; i--)
+            numPiuFrequentiRichiesti.add(numPiuFrequentiDesc.get(i));
+        return numPiuFrequentiRichiesti;
     }
 
 }

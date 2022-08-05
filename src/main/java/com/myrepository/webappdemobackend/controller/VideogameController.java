@@ -1,6 +1,6 @@
 package com.myrepository.webappdemobackend.controller;
 
-import com.myrepository.webappdemobackend.entity.Videogame;
+import com.myrepository.webappdemobackend.entity.model.Videogame;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
