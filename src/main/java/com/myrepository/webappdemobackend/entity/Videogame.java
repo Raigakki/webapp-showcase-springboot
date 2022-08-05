@@ -1,14 +1,19 @@
-package com.myrepository.webappdemobackend.entities;
+package com.myrepository.webappdemobackend.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-@Data
+@Getter @Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Videogame {
+
     @Id
     private Long id;
     private String title;
+
 }

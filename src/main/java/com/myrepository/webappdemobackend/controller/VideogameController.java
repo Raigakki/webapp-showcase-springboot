@@ -1,6 +1,6 @@
-package com.myrepository.webappdemobackend.controllers;
+package com.myrepository.webappdemobackend.controller;
 
-import com.myrepository.webappdemobackend.entities.Videogame;
+import com.myrepository.webappdemobackend.entity.Videogame;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +12,8 @@ import java.util.List;
 @RequestMapping(path = "/api/vg")
 public class VideogameController {
 
-    @GetMapping(path = "/")
-    public List<Videogame> getVidoegameList() {
+    @GetMapping(path = "/all")
+    public List<Videogame> getVideogameList() {
         Videogame vg = new Videogame();
         vg.setId(1L);
         vg.setTitle("Holy shit it works");
