@@ -7,9 +7,9 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResistanceExercise {
+public class Resistance {
 
-    private Integer consideredNumber;
-    private Integer resistanceAssociated;
+    private Integer number;
+    private Integer resistance;
 
 }

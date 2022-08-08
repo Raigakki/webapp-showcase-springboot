@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(path = "/api/exercise")
 public class ExerciseController {
@@ -26,16 +24,15 @@ public class ExerciseController {
 
     @GetMapping(path = "/resistance/find/{numberToCompute}")
     // TODO SISTEMARE NOTE CON SPIEGAZIONE
-    @ApiOperation(value = "Restituisce la resistenza di un numero in input", notes = "La resistenza di un numero è...")
-    public ResponseEntity<String> getResistenza(@PathVariable String numberToCompute) {
+    @ApiOperation(value = "Restituisce la resistenza di un numero in input")
+    public ResponseEntity<String> getResistence(@PathVariable String numberToCompute) {
         return ResponseEntity.ok(exerciseService.getResistenza(numberToCompute));
     }
 
     @GetMapping(path = "/resistance/max/{limitNumber}")
     @ApiOperation(value = "Restituisce il numero con la resistenza più alta calcolato fino al numero in input")
     public ResponseEntity<ExerciseResponse> getHighestResistentNumber(@PathVariable String limitNumber) {
-        // TODO TROVARE STANDARD PER SINTASSI LOG
-        logger.info("getHighestResistentNumber({})", limitNumber);
+        logger.info("ExerciseController -> getHighestResistentNumber(){}", limitNumber);
         return ResponseEntity.ok(exerciseService.getHighestResistentNumber(limitNumber));
     }
 

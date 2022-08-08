@@ -1,13 +1,18 @@
 package com.myrepository.webappdemobackend.service;
 
-import com.myrepository.webappdemobackend.entity.model.ResistanceExercise;
+import com.myrepository.webappdemobackend.WebappDemoBackendApplication;
+import com.myrepository.webappdemobackend.entity.model.Resistance;
 import com.myrepository.webappdemobackend.entity.response.ExerciseResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class ExerciseService {
+
+    private static final Logger logger = LogManager.getLogger(WebappDemoBackendApplication.class);
 
     public String getResistenza(String numeroDaElaborare) {
         try {
@@ -32,31 +37,31 @@ public class ExerciseService {
     }
 
     public ExerciseResponse getHighestResistentNumber(String inputLimit) {
+        logger.info("ExerciseService -> getHighestResistentNumber(), inputLimit: {}", inputLimit);
         ExerciseResponse exerciseResponse = new ExerciseResponse();
-        ResistanceExercise resistanceExercise = new ResistanceExercise();
+        Resistance resistanceExercise = new Resistance();
         try {
             Integer limit = Integer.valueOf(inputLimit);
-            // TODO implementare eccezione perzonalizzata?
-            if (limit < 0) throw new Exception();
-            resistanceExercise.setResistanceAssociated(0);
-            resistanceExercise.setConsideredNumber(0);
+            if (limit < 0) throw new NumberFormatException();
+            resistanceExercise.setResistance(0);
+            resistanceExercise.setNumber(0);
             for (int i = 0; i <= limit; i++) {
-                int resistenzaIterazioneAttuale;
-                resistenzaIterazioneAttuale = Integer.parseInt(getResistenza(String.valueOf(i)));
-                if (resistenzaIterazioneAttuale >= resistanceExercise.getResistanceAssociated()) {
-                    resistanceExercise.setConsideredNumber(i);
-                    resistanceExercise.setResistanceAssociated(resistenzaIterazioneAttuale);
+                int iResistance;
+                iResistance = Integer.parseInt(getResistenza(String.valueOf(i)));
+                if (iResistance >= resistanceExercise.getResistance()) {
+                    resistanceExercise.setNumber(i);
+                    resistanceExercise.setResistance(iResistance);
                 }
             }
         }
-        catch (Exception e) {
+        catch (NumberFormatException nfe) {
+            logger.error("ExerciseService -> getHighestResistentNumber() KO", nfe);
             exerciseResponse.setErrorFlag(true);
-            exerciseResponse.setErrorMessage(
-                    "Input number must be a positive Java-Readable Integer " +
-                    "(Min Value = 0, Max Value = " + Integer.MAX_VALUE + ")");
+            exerciseResponse.setErrorMessage("Input number must be a positive Java-Readable Integer " +
+                                             "(Min Value = 0, Max Value = " + Integer.MAX_VALUE + ")");
             return exerciseResponse;
         }
-        exerciseResponse.setResistanceExercise(resistanceExercise);
+        exerciseResponse.setResistance(resistanceExercise);
         return exerciseResponse;
     }
 

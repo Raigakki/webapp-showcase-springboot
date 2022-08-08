@@ -1,6 +1,7 @@
 package com.myrepository.webappdemobackend.entity.response;
 
-import com.myrepository.webappdemobackend.entity.model.ResistanceExercise;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.myrepository.webappdemobackend.entity.model.Resistance;
 import lombok.*;
 
 @Getter
@@ -9,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 public class ExerciseResponse extends BaseResponse {
 
-    private ResistanceExercise resistanceExercise;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Resistance resistance;
 
 }
