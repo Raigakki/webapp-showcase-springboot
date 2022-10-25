@@ -65,55 +65,34 @@ public class ExerciseService {
         return exerciseResponse;
     }
 
-    public Set<Integer> getFrequente(int[] numsArray) {
-        int count;
-        Set<Integer> numsPiuFrequenti = new HashSet<>();
-        int frequenzaMax = 0;
-        for (int i = 0; i < numsArray.length; i++) {
-            if (numsPiuFrequenti.contains(numsArray[i]))
-                continue;
-            count = 0;
-            for (int j = 0; j < numsArray.length; j++) {
-                if (numsArray[i] == numsArray[j])
-                    count++;
-            }
-            if (count > frequenzaMax) {
-                numsPiuFrequenti.clear();
-                numsPiuFrequenti.add(numsArray[i]);
-                frequenzaMax = count;
-            }
-            if (count == frequenzaMax) {
-                numsPiuFrequenti.add(numsArray[i]);
-            }
-        }
-        return numsPiuFrequenti;
+    public String getFrequente(int[] numsArray) {
+        return getFrequenti(numsArray, 1).get(0);
     }
 
     public List<String> getFrequenti(int[] numsArray, int limit) {
-        int count;
-        Map<String, Integer> frequenzaNums = new HashMap<>();
-        for (int i = 0; i < numsArray.length; i++) {
-            if (frequenzaNums.containsKey(numsArray[i]))
-                continue;
-            count = 0;
-            for (int j = 0; j < numsArray.length; j++) {
-                if (numsArray[i] == numsArray[j])
-                    count++;
-            }
-            frequenzaNums.put(String.valueOf(numsArray[i]),count);
-        }
-
-        List<String> numPiuFrequentiDesc = new ArrayList<>();
-
-        frequenzaNums.entrySet()
+        Map<String, Integer> frequencyMap = setFrequencyMap(numsArray);
+        List<String> numPiuFrequentiDescending = new ArrayList<>();
+        frequencyMap.entrySet()
                 .stream()
-                .sorted(Map.Entry.comparingByValue())
-                .forEachOrdered(x -> numPiuFrequentiDesc.add(x.getKey()));
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> numPiuFrequentiDescending.add(x.getKey()));
+        return numPiuFrequentiDescending;
+    }
 
-        List<String> numPiuFrequentiRichiesti = new ArrayList<>();
-        for (int i = numPiuFrequentiDesc.size() - 1; i > numPiuFrequentiDesc.size() - 1 - limit; i--)
-            numPiuFrequentiRichiesti.add(numPiuFrequentiDesc.get(i));
-        return numPiuFrequentiRichiesti;
+    private Map<String, Integer> setFrequencyMap(int[] numsArray) {
+        Map<String, Integer> frequencyMap = new HashMap<>();
+        int counter;
+        for (int i : numsArray) {
+            if (frequencyMap.containsKey(String.valueOf(i))) {
+                continue;
+            }
+            counter = 0;
+            for (int k : numsArray) {
+                if (i == k) counter++;
+            }
+            frequencyMap.put(String.valueOf(i), counter);
+        }
+        return frequencyMap;
     }
 
 }

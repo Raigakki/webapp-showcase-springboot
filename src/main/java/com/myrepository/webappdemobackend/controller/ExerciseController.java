@@ -20,7 +20,7 @@ public class ExerciseController {
     private static final Logger logger = LogManager.getLogger(WebappDemoBackendApplication.class);
 
     @Autowired
-    ExerciseService exerciseService;
+    protected ExerciseService exerciseService;
 
     @GetMapping(path = "/resistance/find/{numberToCompute}")
     // TODO SISTEMARE NOTE CON SPIEGAZIONE

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(path = "/api/vg")
 public class VideogameController {
@@ -25,7 +23,7 @@ public class VideogameController {
     public Videogame getVidoegame(@PathVariable String id) {
         Videogame vg = new Videogame();
         vg.setId(Long.valueOf(id));
-        vg.setTitle("Holy shit it works with the path variable");
+        vg.setTitle("It works with the path variable");
         return vg;
     }
 
