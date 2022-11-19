@@ -1,7 +1,7 @@
 package com.raigakki.webappshowcase.controller;
 
 import com.raigakki.webappshowcase.entity.model.User;
-import com.raigakki.webappshowcase.service.MyUserDetailsService;
+import com.raigakki.webappshowcase.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private MyUserDetailsService myUserDetailsService;
+    private UserDetailsServiceImpl myUserDetailsService;
 
     @PreAuthorize("permitAll()")
     @PostMapping("/api/user/register")
