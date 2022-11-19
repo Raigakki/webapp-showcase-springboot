@@ -1,4 +1,4 @@
-package com.myrepository.webappdemobackend;
+package com.raigakki.webappshowcase;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

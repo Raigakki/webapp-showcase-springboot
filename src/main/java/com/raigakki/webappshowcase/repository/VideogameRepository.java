@@ -1,6 +1,6 @@
-package com.myrepository.webappdemobackend.repository;
+package com.raigakki.webappshowcase.repository;
 
-import com.myrepository.webappdemobackend.entity.model.Videogame;
+import com.raigakki.webappshowcase.entity.model.Videogame;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

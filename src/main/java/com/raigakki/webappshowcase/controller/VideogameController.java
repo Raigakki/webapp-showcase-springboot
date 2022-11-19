@@ -1,7 +1,7 @@
-package com.myrepository.webappdemobackend.controller;
+package com.raigakki.webappshowcase.controller;
 
-import com.myrepository.webappdemobackend.entity.model.Videogame;
-import com.myrepository.webappdemobackend.entity.response.VideogameResponse;
+import com.raigakki.webappshowcase.entity.model.Videogame;
+import com.raigakki.webappshowcase.entity.response.VideogameResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,4 +1,4 @@
-package com.myrepository.webappdemobackend.entity.model;
+package com.raigakki.webappshowcase.entity.model;
 
 import lombok.*;
 
