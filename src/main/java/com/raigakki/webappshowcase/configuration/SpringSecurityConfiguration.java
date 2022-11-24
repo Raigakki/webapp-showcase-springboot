@@ -14,10 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) // PER ABILITARE LE AUTORIZZAZIONI VIA METODI
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    // TODO CONFIGURARE CORS PER ANGULAR
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -36,7 +34,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .csrf().disable() // TODO CAPIRE PERCHE SERVE, SE NON MESSO BLOCCA LE POST
+                .csrf().disable()
                 .httpBasic();
     }
 }
