@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Component
 @RestController
-@RequestMapping(value = "/api/email")
+@RequestMapping(value = "/api/v1/email")
 public class EmailController {
 
     @Autowired
