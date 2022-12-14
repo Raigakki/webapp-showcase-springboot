@@ -32,4 +32,8 @@ public class VideogameService {
         return videogameList;
     }
 
+    public Videogame addVideogame(Videogame videogame) {
+        return videogameRepository.save(videogame);
+    }
+
 }
