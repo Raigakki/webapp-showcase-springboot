@@ -1,12 +1,13 @@
 package com.raigakki.webappshowcase.controller;
 
-import com.raigakki.webappshowcase.entity.model.Videogame;
-import com.raigakki.webappshowcase.repository.VideogameRepository;
-import com.raigakki.webappshowcase.service.EmailService;
+import com.raigakki.webappshowcase.model.entity.Videogame;
+import com.raigakki.webappshowcase.service.VideogameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -15,19 +16,23 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/videogame")
 public class VideogameController {
 
+    private final VideogameService videogameService;
+
     @Autowired
-    private VideogameRepository videogameRepository;
+    public VideogameController(VideogameService videogameService) {
+        this.videogameService = videogameService;
+    }
 
-    //TODO SISTEMARE NOMI
     @GetMapping(value = "/all")
-    public List<Videogame> getAll() {
-        return videogameRepository.findAll();
+    public List<Videogame> getAllBySoftwareHouseName() {
+        List<Videogame> videogameList = videogameService.getAll();
+        return videogameList;
     }
 
-    @GetMapping(value = "/{videogameId}")
-    public Videogame getById(@PathVariable Long videogameId) {
-        return videogameRepository.findById(videogameId).get();
+    @GetMapping(value = "/all/{softwareHouseName}")
+    public List<Videogame> getAllBySoftwareHouseName(@PathVariable String softwareHouseName) {
+        List<Videogame> videogameList = videogameService.getVideogameBySoftwareHouseName(softwareHouseName);
+        return videogameList;
     }
-
 
 }

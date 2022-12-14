@@ -34,13 +34,6 @@
 		</dependency>
 		<!-- SPRING BOOT -->
 
-		<!-- SPRING SECURITY -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<!-- SPRING SECURITY -->
-
 		<!-- SPRING MAIL -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
