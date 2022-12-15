@@ -7,7 +7,9 @@ import com.raigakki.webappshowcase.repository.VideogameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VideogameService {
@@ -26,14 +28,24 @@ public class VideogameService {
         return videogameRepository.findAll();
     }
 
-    public List<Videogame> getVideogameBySoftwareHouseName(String softwareHouseName) {
-        SoftwareHouse softwareHouse = softwareHouseRepository.findSoftwareHouseByName(softwareHouseName);
-        List<Videogame> videogameList = videogameRepository.findVideoGameBySoftwareHouse(softwareHouse);
-        return videogameList;
+    public Videogame getVideogameById(Long videogameId) {
+        return videogameRepository.findById(videogameId).orElse(new Videogame());
     }
 
-    public Videogame addVideogame(Videogame videogame) {
-        return videogameRepository.save(videogame);
+    public List<Videogame> getVideogameBySoftwareHouseName(String softwareHouseName) {
+        return null;
+    }
+
+    public Videogame addVideogame(Videogame videogame, Long softwareHouseId) {
+        return null;
+    }
+
+    public Videogame updateVideogame(Videogame videogame, Long videogameId) {
+        return null;
+    }
+
+    public void deleteVideogame(Long videoogameId) {
+        videogameRepository.deleteById(videoogameId);
     }
 
 }

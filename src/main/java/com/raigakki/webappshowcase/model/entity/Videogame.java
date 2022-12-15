@@ -1,6 +1,6 @@
 package com.raigakki.webappshowcase.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,15 +9,18 @@ import javax.persistence.*;
 @Getter @Setter @ToString
 @NoArgsConstructor @AllArgsConstructor
 @Table(name = "t_videogame")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Videogame {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "software_house_id")
-    @JsonBackReference
+    @JsonIgnoreProperties(value="videogameList")
     private SoftwareHouse softwareHouse;
 
 }

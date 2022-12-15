@@ -1,15 +1,13 @@
 package com.raigakki.webappshowcase.controller;
 
 import com.raigakki.webappshowcase.model.entity.Videogame;
-import com.raigakki.webappshowcase.repository.VideogameRepository;
 import com.raigakki.webappshowcase.service.VideogameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Component
 @RestController
 @RequestMapping(value = "/api/v1/videogame")
 public class VideogameController {
@@ -22,20 +20,33 @@ public class VideogameController {
     }
 
     @GetMapping(value = "/all")
-    public List<Videogame> getAllBySoftwareHouseName() {
+    public ResponseEntity<List<Videogame>> getAllVideogame() {
         List<Videogame> videogameList = videogameService.getAll();
-        return videogameList;
+        return ResponseEntity.ok(videogameList);
     }
 
-    @GetMapping(value = "/all/{softwareHouseName}")
-    public List<Videogame> getAllBySoftwareHouseName(@PathVariable String softwareHouseName) {
+    @GetMapping(value = "/findById/{videogameId}")
+    public ResponseEntity<Videogame> getVideogameById(@PathVariable Long videogameId) {
+        Videogame videogame = videogameService.getVideogameById(videogameId);
+        return ResponseEntity.ok(videogame);
+    }
+
+    @GetMapping(value = "/findBySoftwareHouseName/{softwareHouseName}")
+    public ResponseEntity<List<Videogame>> getAllVideogameBySoftwareHouseName(@PathVariable String softwareHouseName) {
         List<Videogame> videogameList = videogameService.getVideogameBySoftwareHouseName(softwareHouseName);
-        return videogameList;
+        return ResponseEntity.ok(videogameList);
     }
 
-    @PostMapping(value = "/add")
-    public Videogame addVideogame(@RequestBody Videogame videogame) {
-        return videogameService.addVideogame(videogame);
+    @PostMapping(value = "/addBySoftwareHouseId")
+    public ResponseEntity<Videogame> addVideogameBySoftwareHouseId() {
+        return null;
     }
+
+    @PutMapping(value = "/updateById/{videogameId}")
+    public ResponseEntity<Videogame> updateVideogameById() {
+        return null;
+    }
+
+    //@DeleteMapping
 
 }
