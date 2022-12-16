@@ -1,10 +1,11 @@
 package com.raigakki.webappshowcase.model.entity;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter @ToString
@@ -21,6 +22,6 @@ public class SoftwareHouse {
 
     @OneToMany(mappedBy = "softwareHouse", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value="softwareHouse")
-    private List<Videogame> videogameList;
+    private Set<Videogame> videogameList;
 
 }
